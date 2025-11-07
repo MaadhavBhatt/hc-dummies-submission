@@ -1,4 +1,8 @@
-class TwoDLine {
+class TwoDObject {}
+
+class ThreeDObject {}
+
+class TwoDLine extends TwoDObject {
   final double slope;
   final double intercept;
 
@@ -10,9 +14,14 @@ class TwoDLine {
       throw Exception('Intercept cannot be infinite for a 2D line.');
     }
   }
+
+  @override
+  String toString() {
+    return 'TwoDLine(slope: $slope, intercept: $intercept)';
+  }
 }
 
-class ThreeDLine {
+class ThreeDLine extends ThreeDObject {
   final List<double> point; // A point on the line [x, y, z]
   final List<double> direction; // Direction vector of the line [dx, dy, dz]
 
@@ -26,6 +35,11 @@ class ThreeDLine {
     if (direction.every((component) => component == 0)) {
       throw Exception('Direction vector cannot be the zero vector.');
     }
+  }
+
+  @override
+  String toString() {
+    return 'ThreeDLine(point: $point, direction: $direction)';
   }
 }
 
