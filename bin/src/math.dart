@@ -21,6 +21,42 @@ abstract class ThreeDObject extends MathObject {
   String get objectName => 'Unknown ThreeDObject';
 }
 
+class TwoDSpace extends MathObject {
+  List<TwoDObject> objects = [];
+
+  @override
+  String get objectName => 'TwoDSpace';
+  @override
+  Map<String, dynamic> get properties => {'number_of_objects': objects.length};
+
+  void addObject(TwoDObject obj) {
+    objects.add(obj);
+  }
+
+  List<TwoDObject> getObjects() {
+    return objects;
+  }
+
+  void removeObject(TwoDObject obj) {
+    objects.remove(obj);
+  }
+
+  List<double> calculateTwoDLineSolution(TwoDLine line_1, TwoDLine line_2) {
+    if (line_1.slope == line_2.slope) {
+      if (line_1.intercept == line_2.intercept) {
+        throw Exception('Infinite solutions: lines are identical.');
+      } else {
+        throw Exception('No solution: lines are parallel.');
+      }
+    }
+
+    double x =
+        (line_2.intercept - line_1.intercept) / (line_1.slope - line_2.slope);
+    double y = line_1.slope * x + line_1.intercept;
+    return [x, y];
+  }
+}
+
 class Point2D extends TwoDObject {
   final double x;
   final double y;
@@ -78,19 +114,4 @@ class ThreeDLine extends ThreeDObject {
       throw Exception('Direction vector cannot be the zero vector.');
     }
   }
-}
-
-List<double> calculateTwoDLineSolution(TwoDLine line_1, TwoDLine line_2) {
-  if (line_1.slope == line_2.slope) {
-    if (line_1.intercept == line_2.intercept) {
-      throw Exception('Infinite solutions: lines are identical.');
-    } else {
-      throw Exception('No solution: lines are parallel.');
-    }
-  }
-
-  double x =
-      (line_2.intercept - line_1.intercept) / (line_1.slope - line_2.slope);
-  double y = line_1.slope * x + line_1.intercept;
-  return [x, y];
 }
