@@ -1,10 +1,37 @@
-class TwoDObject {}
+abstract class MathObject {
+  String get objectName => 'Unknown MathObject';
+  Map<String, dynamic>? get properties;
 
-class ThreeDObject {}
+  @override
+  String toString() {
+    final props = properties != null
+        ? properties!.entries.map((e) => '${e.key}: ${e.value}').join(', ')
+        : '';
+    return '$objectName($props)';
+  }
+}
+
+abstract class TwoDObject extends MathObject {
+  @override
+  String get objectName => 'Unknown TwoDObject';
+}
+
+abstract class ThreeDObject extends MathObject {
+  @override
+  String get objectName => 'Unknown ThreeDObject';
+}
 
 class TwoDLine extends TwoDObject {
   final double slope;
   final double intercept;
+
+  @override
+  String get objectName => 'TwoDLine';
+  @override
+  Map<String, dynamic> get properties => {
+    'slope': slope,
+    'intercept': intercept,
+  };
 
   TwoDLine(this.slope, this.intercept) {
     if (slope.isInfinite) {
@@ -14,16 +41,19 @@ class TwoDLine extends TwoDObject {
       throw Exception('Intercept cannot be infinite for a 2D line.');
     }
   }
-
-  @override
-  String toString() {
-    return 'TwoDLine(slope: $slope, intercept: $intercept)';
-  }
 }
 
 class ThreeDLine extends ThreeDObject {
   final List<double> point; // A point on the line [x, y, z]
   final List<double> direction; // Direction vector of the line [dx, dy, dz]
+
+  @override
+  String get objectName => 'ThreeDLine';
+  @override
+  Map<String, dynamic> get properties => {
+    'point': point,
+    'direction': direction,
+  };
 
   ThreeDLine(this.point, this.direction) {
     if (point.length != 3) {
@@ -35,11 +65,6 @@ class ThreeDLine extends ThreeDObject {
     if (direction.every((component) => component == 0)) {
       throw Exception('Direction vector cannot be the zero vector.');
     }
-  }
-
-  @override
-  String toString() {
-    return 'ThreeDLine(point: $point, direction: $direction)';
   }
 }
 
