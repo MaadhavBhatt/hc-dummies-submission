@@ -22,7 +22,7 @@ abstract class ThreeDObject extends MathObject {
 }
 
 class TwoDSpace extends MathObject {
-  List<TwoDObject> objects = [];
+  Set<TwoDObject> objects = {};
 
   @override
   String get objectName => 'TwoDSpace';
@@ -33,7 +33,7 @@ class TwoDSpace extends MathObject {
     objects.add(obj);
   }
 
-  List<TwoDObject> getObjects() {
+  Set<TwoDObject> getObjects() {
     return objects;
   }
 
