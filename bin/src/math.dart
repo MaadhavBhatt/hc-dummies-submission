@@ -21,6 +21,18 @@ abstract class ThreeDObject extends MathObject {
   String get objectName => 'Unknown ThreeDObject';
 }
 
+class Point2D extends TwoDObject {
+  final double x;
+  final double y;
+
+  @override
+  String get objectName => 'Point2D';
+  @override
+  Map<String, dynamic> get properties => {'x': x, 'y': y};
+
+  Point2D(this.x, this.y);
+}
+
 class TwoDLine extends TwoDObject {
   final double slope;
   final double intercept;
