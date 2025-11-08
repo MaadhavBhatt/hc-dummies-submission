@@ -21,6 +21,36 @@ class Vector extends MathObject {
       print('Warning: Consider using Vector2D or Vector3D for clarity.');
     }
   }
+
+  Vector _elementWiseOp(Vector v, double Function(double, double) op) {
+    if (components.length != v.components.length) {
+      throw Exception('Vectors must have the same dimension.');
+    }
+    final result = List<double>.generate(
+      components.length,
+      (i) => op(components[i], v.components[i]),
+    );
+    return Vector(result);
+  }
+
+  Vector operator +(Vector v) => _elementWiseOp(v, (a, b) => a + b);
+  Vector operator -(Vector v) => _elementWiseOp(v, (a, b) => a - b);
+
+  @override
+  bool operator ==(Object other) {
+    if (other is! Vector || other.components.length != components.length) {
+      return false;
+    }
+    for (int i = 0; i < components.length; i++) {
+      if (components[i] != other.components[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode => components.hashCode;
 }
 
 class Vector2D extends Vector {
