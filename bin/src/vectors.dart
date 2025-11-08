@@ -18,6 +18,7 @@ import 'base.dart';
 /// - vector operations are attempted on vectors of different dimensions.
 class Vector extends MathObject {
   final List<double> components;
+  int get dimension => components.length;
 
   @override
   String get objectName => 'Vector';
@@ -33,17 +34,17 @@ class Vector extends MathObject {
     )) {
       throw Exception('Vector components cannot be infinite or NaN.');
     }
-    if (components.length < 4 && runtimeType == Vector) {
+    if (dimension < 4 && runtimeType == Vector) {
       print('Warning: Consider using Vector2D or Vector3D for clarity.');
     }
   }
 
   Vector _elementWiseOp(Vector v, double Function(double, double) op) {
-    if (components.length != v.components.length) {
+    if (dimension != v.dimension) {
       throw Exception('Vectors must have the same dimension.');
     }
     final result = List<double>.generate(
-      components.length,
+      dimension,
       (i) => op(components[i], v.components[i]),
     );
     return Vector(result);
@@ -57,10 +58,10 @@ class Vector extends MathObject {
 
   @override
   bool operator ==(Object other) {
-    if (other is! Vector || other.components.length != components.length) {
+    if (other is! Vector || other.dimension != dimension) {
       return false;
     }
-    for (int i = 0; i < components.length; i++) {
+    for (int i = 0; i < dimension; i++) {
       if (components[i] != other.components[i]) {
         return false;
       }
@@ -80,7 +81,7 @@ class Vector2D extends Vector {
   String get objectName => 'Vector2D';
 
   Vector2D(double x, double y) : super([x, y]) {
-    if (components.length != 2) {
+    if (dimension != 2) {
       throw Exception('Vector2D must have exactly 2 components.');
     }
   }
@@ -94,7 +95,7 @@ class Vector3D extends Vector {
   String get objectName => 'Vector3D';
 
   Vector3D(double x, double y, double z) : super([x, y, z]) {
-    if (components.length != 3) {
+    if (dimension != 3) {
       throw Exception('Vector3D must have exactly 3 components.');
     }
   }
