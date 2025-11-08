@@ -71,6 +71,15 @@ class Vector extends MathObject {
 
   @override
   int get hashCode => components.hashCode;
+
+  bool isZeroVector() {
+    for (final component in components) {
+      if (component != 0.0) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 /// Represents a 2-dimensional vector class extending [Vector].
