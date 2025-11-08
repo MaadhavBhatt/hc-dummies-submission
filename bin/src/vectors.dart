@@ -52,6 +52,9 @@ class Vector extends MathObject {
   Vector operator +(Vector v) => _elementWiseOp(v, (a, b) => a + b);
   Vector operator -(Vector v) => _elementWiseOp(v, (a, b) => a - b);
 
+  double dot(Vector v) =>
+      _elementWiseOp(v, (a, b) => a * b).components.reduce((a, b) => a + b);
+
   @override
   bool operator ==(Object other) {
     if (other is! Vector || other.components.length != components.length) {
