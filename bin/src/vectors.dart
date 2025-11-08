@@ -109,3 +109,91 @@ class Vector3D extends Vector {
     }
   }
 }
+
+bool areOrthogonal(Vector v1, Vector v2) {
+  if (v1.dimension != v2.dimension) {
+    throw Exception(
+      'Vectors must have the same dimension to check orthogonality.',
+    );
+  }
+  return v1.dot(v2) == 0.0;
+}
+
+bool areParallel(Vector v1, Vector v2) {
+  if (v1.isZeroVector() || v2.isZeroVector()) {
+    return true; // Zero vector is parallel to any vector
+  }
+
+  if (v1.dimension != v2.dimension) {
+    throw Exception(
+      'Vectors must have the same dimension to check parallelism.',
+    );
+  }
+  final int dimension = v1.dimension;
+
+  double ratio = v1.components[0] / v2.components[0];
+  for (int i = 0; i < dimension; i++) {
+    double a = v1.components[i];
+    double b = v2.components[i];
+
+    if (a == 0 && b == 0) {
+      continue; // Both components are zero, move to next
+    } else if (b == 0) {
+      return false; // Not parallel if one is zero and the other is not
+    } else {
+      double currentRatio = a / b;
+      if (currentRatio != ratio) {
+        return false; // Not parallel if ratios differ
+      }
+    }
+  }
+  return true; // All component pairs passed the ratio test
+}
+
+/// Validates if a set of vectors can form a basis in their vector space.
+///
+/// Returns a map with keys:
+/// - 'isValid': a boolean indicating if the vectors form a valid basis.
+/// - 'reason': a string explaining why the basis is invalid if 'isValid' is
+///  false.
+///
+/// A basis is valid if:
+/// - The number of vectors equals the dimension of the vectors.
+/// - All vectors have the same dimension.
+/// - No vector is the zero vector.
+/// - No two vectors are parallel.
+///
+/// Throws an [Exception] if the set of vectors is empty.
+Map<String, dynamic> areValidBasisVectors(Set<Vector> vectors) {
+  Map<String, dynamic> response = {'isValid': false, 'reason': ''};
+  if (vectors.isEmpty) {
+    throw Exception('At least one vector is required to form a basis.');
+  }
+
+  final dimension = vectors.first.dimension;
+
+  if (vectors.length != dimension) {
+    response['reason'] =
+        'Number of vectors must equal the dimension to form a basis.';
+    return response;
+  }
+
+  for (final v in vectors) {
+    if (v.dimension != dimension) {
+      response['reason'] = 'All vectors must have the same dimension.';
+      return response;
+    }
+    if (v.isZeroVector()) {
+      response['reason'] = 'Vectors cannot be the zero vector.';
+      return response;
+    }
+    if (vectors
+        .where((other) => other != v)
+        .any((other) => areParallel(v, other))) {
+      response['reason'] = 'Vectors must be linearly independent / parallel.';
+      return response;
+    }
+  }
+  response['isValid'] = true;
+  return response;
+}
