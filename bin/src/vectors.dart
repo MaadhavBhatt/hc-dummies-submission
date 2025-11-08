@@ -1,5 +1,21 @@
 import 'base.dart';
 
+/// A mathematical vector class representing an n-dimensional vector.
+///
+/// The [Vector] class extends [MathObject] and provides basic vector operations
+/// such as addition and subtraction. This class can be used for both vectors and points
+/// in space, depending on the context.
+///
+/// The class also includes equality and hashCode methods to allow for proper
+/// comparison and usage in collections.
+///
+/// If the vector has fewer than 4 components and is not a subclass, a warning is printed
+/// suggesting the use of more specific types like `Vector2D` or `Vector3D`.
+///
+/// Throws an [Exception] if
+/// - the vector has no components.
+/// - any component is infinite or NaN.
+/// - vector operations are attempted on vectors of different dimensions.
 class Vector extends MathObject {
   final List<double> components;
 
@@ -53,6 +69,9 @@ class Vector extends MathObject {
   int get hashCode => components.hashCode;
 }
 
+/// Represents a 2-dimensional vector class extending [Vector].
+///
+/// Throws an [Exception] if the vector does not have exactly 2 components.
 class Vector2D extends Vector {
   @override
   String get objectName => 'Vector2D';
@@ -64,6 +83,9 @@ class Vector2D extends Vector {
   }
 }
 
+/// Represents a 2-dimensional vector class extending [Vector].
+///
+/// Throws an [Exception] if the vector does not have exactly 3 components.
 class Vector3D extends Vector {
   @override
   String get objectName => 'Vector3D';
