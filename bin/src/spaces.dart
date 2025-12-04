@@ -1,4 +1,5 @@
 import 'base.dart';
+import 'vectors.dart';
 
 class Line extends MathObject {
   @override
@@ -67,11 +68,30 @@ class ThreeDLine extends Line {
 
 class Plane extends MathObject {
   Set<MathObject> objects = {};
+  Set<Vector3D> basisVectors = {
+    Vector3D(1.0, 0.0, 0.0),
+    Vector3D(0.0, 1.0, 0.0),
+  };
 
   @override
   String get objectName => 'TwoDSpace';
   @override
   Map<String, dynamic> get properties => {'number_of_objects': objects.length};
+
+  Set<Vector3D> getBasisVectors() {
+    return basisVectors;
+  }
+
+  void SetBasisVectors(Set<Vector3D> vectors) {
+    bool isValidBasis = areValidBasisVectors(vectors)["isValid"];
+    if (!isValidBasis) {
+      throw Exception(
+        'Provided vectors do not form a valid basis for the plane.',
+      );
+    } else {
+      basisVectors = vectors;
+    }
+  }
 
   void addObject(MathObject obj) {
     // TODO: Validate that obj is a 2D object
