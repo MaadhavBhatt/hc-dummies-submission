@@ -82,7 +82,7 @@ class Plane extends MathObject {
     return basisVectors;
   }
 
-  void SetBasisVectors(Set<Vector3D> vectors) {
+  void setBasisVectors(Set<Vector3D> vectors) {
     bool isValidBasis = areValidBasisVectors(vectors)["isValid"];
     if (!isValidBasis) {
       throw Exception(
