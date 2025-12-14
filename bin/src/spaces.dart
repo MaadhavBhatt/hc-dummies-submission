@@ -31,37 +31,32 @@ class TwoDLine extends Line {
 }
 
 class ThreeDLine extends Line {
-  final List<double> point; // A point on the line [x, y, z]
-  final List<double> direction; // Direction vector of the line [dx, dy, dz]
+  final Vector3D point; // A point on the line [x, y, z]
+  final Vector3D direction; // Direction vector of the line [dx, dy, dz]
 
   @override
   String get objectName => 'ThreeDLine';
   @override
-  Map<String, dynamic> get properties => {
+  Map<String, Vector3D> get properties => {
     'point': point,
     'direction': direction,
   };
 
   ThreeDLine(this.point, this.direction) {
-    if (point.length != 3) {
-      throw Exception('Point must be a 3-dimensional vector.');
-    }
-    if (direction.length != 3) {
-      throw Exception('Direction must be a 3-dimensional vector.');
-    }
-    if (direction.every((d) => d == 0)) {
+    if (direction.isZeroVector()) {
       throw Exception('Direction vector cannot be the zero vector.');
     }
   }
 
-  static ThreeDLine fromPointAndDirection(
-    List<double> point,
-    List<double> direction,
-  ) {
-    return ThreeDLine(point, direction);
+  Vector3D getPoint() {
+    return point;
   }
 
-  Map<String, List<double>> getPointAndDirection() {
+  Vector3D getDirection() {
+    return direction;
+  }
+
+  Map<String, Vector3D> getPointAndDirection() {
     return {'point': point, 'direction': direction};
   }
 }
