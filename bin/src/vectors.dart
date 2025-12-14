@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'base.dart';
 
 /// A mathematical vector class representing an n-dimensional vector.
@@ -55,6 +56,20 @@ class Vector extends MathObject {
 
   double dot(Vector v) =>
       _elementWiseOp(v, (a, b) => a * b).components.reduce((a, b) => a + b);
+  
+  double magnitude() {
+    return sqrt(dot(this));
+  }
+
+  void normalize() {
+    final mag = magnitude();
+    if (mag == 0) {
+      throw Exception('Cannot normalize the zero vector.');
+    }
+    final normalizedComponents =
+        components.map((c) => c / mag).toList();
+    components.setAll(0, normalizedComponents);
+  }
 
   @override
   bool operator ==(Object other) {
