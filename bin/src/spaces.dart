@@ -67,6 +67,7 @@ class Plane extends MathObject {
     Vector3D(1.0, 0.0, 0.0),
     Vector3D(0.0, 1.0, 0.0),
   };
+  Set<Vector3D> origin = {Vector3D(0.0, 0.0, 0.0)};
 
   @override
   String get objectName => 'TwoDSpace';
@@ -75,6 +76,10 @@ class Plane extends MathObject {
 
   Set<Vector3D> getBasisVectors() {
     return basisVectors;
+  }
+
+  Set<Vector3D> getOrigin() {
+    return origin;
   }
 
   void setBasisVectors(Set<Vector3D> vectors) {
@@ -86,6 +91,10 @@ class Plane extends MathObject {
     } else {
       basisVectors = vectors;
     }
+  }
+
+  void setOrigin(Set<Vector3D> newOrigin) {
+    origin = newOrigin;
   }
 
   void addObject(MathObject obj) {
