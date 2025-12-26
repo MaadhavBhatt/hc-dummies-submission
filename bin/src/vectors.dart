@@ -165,7 +165,7 @@ bool areParallel(Vector v1, Vector v2) {
   return true; // All component pairs passed the ratio test
 }
 
-/// Validates if a set of vectors can form a basis in their vector space.
+/// Validates if a list of vectors can form a basis in their vector space.
 ///
 /// Returns a map with keys:
 /// - 'isValid': a boolean indicating if the vectors form a valid basis.
@@ -178,8 +178,8 @@ bool areParallel(Vector v1, Vector v2) {
 /// - No vector is the zero vector.
 /// - No two vectors are parallel.
 ///
-/// Throws an [Exception] if the set of vectors is empty.
-Map<String, dynamic> areValidBasisVectors(Set<Vector> vectors) {
+/// Throws an [Exception] if the list of vectors is empty.
+Map<String, dynamic> areValidBasisVectors(List<Vector> vectors) {
   Map<String, dynamic> response = {'isValid': false, 'reason': ''};
   if (vectors.isEmpty) {
     throw Exception('At least one vector is required to form a basis.');

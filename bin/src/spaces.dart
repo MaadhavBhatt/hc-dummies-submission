@@ -63,26 +63,26 @@ class ThreeDLine extends Line {
 
 class Plane extends MathObject {
   Set<MathObject> objects = {};
-  Set<Vector3D> basisVectors = {
+  List<Vector3D> basisVectors = [
     Vector3D(1.0, 0.0, 0.0),
     Vector3D(0.0, 1.0, 0.0),
-  };
-  Set<Vector3D> origin = {Vector3D(0.0, 0.0, 0.0)};
+  ];
+  Vector3D origin = Vector3D(0.0, 0.0, 0.0);
 
   @override
   String get objectName => 'TwoDSpace';
   @override
   Map<String, dynamic> get properties => {'number_of_objects': objects.length};
 
-  Set<Vector3D> getBasisVectors() {
+  List<Vector3D> getBasisVectors() {
     return basisVectors;
   }
 
-  Set<Vector3D> getOrigin() {
+  Vector3D getOrigin() {
     return origin;
   }
 
-  void setBasisVectors(Set<Vector3D> vectors) {
+  void setBasisVectors(List<Vector3D> vectors) {
     bool isValidBasis = areValidBasisVectors(vectors)["isValid"];
     if (!isValidBasis) {
       throw Exception(
@@ -93,7 +93,7 @@ class Plane extends MathObject {
     }
   }
 
-  void setOrigin(Set<Vector3D> newOrigin) {
+  void setOrigin(Vector3D newOrigin) {
     origin = newOrigin;
   }
 
