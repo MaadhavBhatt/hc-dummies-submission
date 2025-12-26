@@ -56,7 +56,7 @@ class Vector extends MathObject {
 
   double dot(Vector v) =>
       _elementWiseOp(v, (a, b) => a * b).components.reduce((a, b) => a + b);
-  
+
   double magnitude() {
     return sqrt(dot(this));
   }
@@ -66,8 +66,7 @@ class Vector extends MathObject {
     if (mag == 0) {
       throw Exception('Cannot normalize the zero vector.');
     }
-    final normalizedComponents =
-        components.map((c) => c / mag).toList();
+    final normalizedComponents = components.map((c) => c / mag).toList();
     components.setAll(0, normalizedComponents);
   }
 
