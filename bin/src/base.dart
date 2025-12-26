@@ -14,17 +14,3 @@ abstract class MathObject {
     return '$objectName($props)';
   }
 }
-
-/// An abstract class representing a 2D mathematical object.
-/// Extends [MathObject].
-abstract class TwoDObject extends MathObject {
-  @override
-  String get objectName => 'Unknown TwoDObject';
-}
-
-/// An abstract class representing a 3D mathematical object.
-/// Extends [MathObject].
-abstract class ThreeDObject extends MathObject {
-  @override
-  String get objectName => 'Unknown ThreeDObject';
-}
