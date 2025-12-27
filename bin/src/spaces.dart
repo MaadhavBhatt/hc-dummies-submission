@@ -128,6 +128,12 @@ class Plane extends MathObject {
 
 class ThreeDSpace extends MathObject {
   Set<MathObject> objects = {};
+  List<Vector3D> basisVectors = [
+    Vector3D(1.0, 0.0, 0.0),
+    Vector3D(0.0, 1.0, 0.0),
+    Vector3D(0.0, 0.0, 1.0),
+  ];
+  Vector3D origin = Vector3D(0.0, 0.0, 0.0);
 
   @override
   String get objectName => 'ThreeDSpace';
