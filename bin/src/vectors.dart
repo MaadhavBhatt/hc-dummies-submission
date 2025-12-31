@@ -108,6 +108,9 @@ class Vector2D extends Vector {
       throw Exception('Vector2D must have exactly 2 components.');
     }
   }
+
+  double get x => components[0];
+  double get y => components[1];
 }
 
 /// Represents a 2-dimensional vector class extending [Vector].
@@ -122,6 +125,10 @@ class Vector3D extends Vector {
       throw Exception('Vector3D must have exactly 3 components.');
     }
   }
+
+  double get x => components[0];
+  double get y => components[1];
+  double get z => components[2];
 
   Vector3D cross(Vector3D v) {
     final x = components[1] * v.components[2] - components[2] * v.components[1];
