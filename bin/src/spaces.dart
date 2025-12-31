@@ -28,6 +28,24 @@ class TwoDLine extends Line {
       throw Exception('Intercept cannot be infinite for a 2D line.');
     }
   }
+
+  double getSlope() {
+    return slope;
+  }
+
+  double getIntercept() {
+    return intercept;
+  }
+
+  static TwoDLine fromTwoPoints(Vector2D p1, Vector2D p2) {
+    if (p1 == p2) {
+      throw Exception("Points must be distinct to define a line.");
+    }
+
+    double slope = (p2.y - p1.y) / (p2.x - p1.x);
+    double intercept = p1.y - slope * p1.x;
+    return TwoDLine(slope, intercept);
+  }
 }
 
 class ThreeDLine extends Line {
