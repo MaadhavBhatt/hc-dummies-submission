@@ -110,6 +110,24 @@ class Plane extends MathObject {
     objects.remove(obj);
   }
 
+  /// Returns a map of variable and coeffecient values in the equation
+  /// form of a [Plane].
+  /// Example: Ax + By + Cz + D = 0 returns the map
+  /// {'A': A, 'B': B, 'C': C, 'D': D}
+
+  Map<String, double> getEquationParameters() {
+    Vector3D e1 = basisVectors[0];
+    Vector3D e2 = basisVectors[1];
+    Vector3D normalVector = e1.cross(e2);
+
+    double A = normalVector.x;
+    double B = normalVector.y;
+    double C = normalVector.z;
+    double D = -(A * origin.x + B * origin.y + C * origin.z);
+    
+    return {'A': A, 'B': B, 'C': C, 'D': D};
+  }
+
   List<double> calculateTwoDLineSolution(TwoDLine line_1, TwoDLine line_2) {
     if (line_1.slope == line_2.slope) {
       if (line_1.intercept == line_2.intercept) {
