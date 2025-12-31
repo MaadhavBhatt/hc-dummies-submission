@@ -122,6 +122,13 @@ class Vector3D extends Vector {
       throw Exception('Vector3D must have exactly 3 components.');
     }
   }
+
+  Vector3D cross(Vector3D v) {
+    final x = components[1] * v.components[2] - components[2] * v.components[1];
+    final y = components[2] * v.components[0] - components[0] * v.components[2];
+    final z = components[0] * v.components[1] - components[1] * v.components[0];
+    return Vector3D(x, y, z);
+  }
 }
 
 bool areOrthogonal(Vector v1, Vector v2) {
