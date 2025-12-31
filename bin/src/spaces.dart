@@ -77,6 +77,14 @@ class ThreeDLine extends Line {
   Map<String, Vector3D> getPointAndDirection() {
     return {'point': point, 'direction': direction};
   }
+
+  static ThreeDLine fromTwoPoints(Vector3D p1, Vector3D p2) {
+    if (p1 == p2) {
+      throw Exception('Points must be distinct to define a line.');
+    }
+    final Vector3D direction = p2 - p1 as Vector3D;
+    return ThreeDLine(p1, direction);
+  }
 }
 
 class Plane extends MathObject {
