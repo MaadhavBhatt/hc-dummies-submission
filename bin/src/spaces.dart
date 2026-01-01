@@ -111,6 +111,14 @@ class ThreeDLine extends Line {
       return '$xPart, $yPart, $zPart';
     }
   }
+
+  Map<String, String> toParametricForm() {
+    return {
+      'x': 'x = ${point.x} + ${direction.x}t',
+      'y': 'y = ${point.y} + ${direction.y}t',
+      'z': 'z = ${point.z} + ${direction.z}t',
+    };
+  }
 }
 
 class Plane extends MathObject {
