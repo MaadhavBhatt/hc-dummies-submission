@@ -85,6 +85,32 @@ class ThreeDLine extends Line {
     final Vector3D direction = p2 - p1 as Vector3D;
     return ThreeDLine(p1, direction);
   }
+
+  String toSymmetricForm() {
+    String xPart = direction.x != 0
+      ? '(x - ${point.x}) / ${direction.x}'
+      : 'x = ${point.x}';
+    
+    String yPart = direction.y != 0
+      ? '(y - ${point.y}) / ${direction.y}'
+      : 'y = ${point.y}';
+
+    String zPart = direction.z != 0
+      ? '(z - ${point.z}) / ${direction.z}'
+      : 'z = ${point.z}';
+
+    if (direction.x != 0 && direction.y != 0 && direction.z != 0) {
+      return '$xPart = $yPart = $zPart';
+    } else if (direction.x != 0 && direction.y != 0) {
+      return '$xPart = $yPart, $zPart';
+    } else if (direction.x != 0 && direction.z != 0) {
+      return '$xPart = $zPart, $yPart';
+    } else if (direction.y != 0 && direction.z != 0) {
+      return '$yPart = $zPart, $xPart';
+    } else {
+      return '$xPart, $yPart, $zPart';
+    }
+  }
 }
 
 class Plane extends MathObject {
